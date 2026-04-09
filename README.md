@@ -16,6 +16,16 @@ sudo bash setup.sh "My Speaker Name"
 
 The device name defaults to `Record Player` if omitted. After rebooting the device will appear under that name on AirPlay, Spotify Connect, and Bluetooth.
 
+### Verify the setup
+
+After rebooting, run the interactive speaker test to confirm channel allocation and crossover:
+
+```bash
+bash test-speakers.sh
+```
+
+It walks through four tones with prompts and tells you what to expect at each step.
+
 ---
 
 ## What gets installed
@@ -90,6 +100,21 @@ If your unit is wired correctly, remove the `ttable` lines and point `pcm.!defau
 | `bluealsa` | yes | Bluetooth ALSA bridge |
 | `bluealsa-aplay` | yes | Plays Bluetooth audio to ALSA default |
 | `bt-agent` | yes | Auto-pairing, no PIN |
+
+---
+
+## Testing
+
+Run `bash test-speakers.sh` on the Pi to interactively verify:
+
+| Test | Frequency | Expected |
+|---|---|---|
+| Left channel | 1 kHz | Sound from left side only |
+| Right channel | 1 kHz | Sound from right side only |
+| Woofer crossover | 80 Hz | Bass from woofers only, tweeters silent |
+| Tweeter crossover | 8 kHz | Hiss from tweeters only, woofers silent |
+
+The script prompts before each tone and gives diagnostic hints on failure.
 
 ---
 
